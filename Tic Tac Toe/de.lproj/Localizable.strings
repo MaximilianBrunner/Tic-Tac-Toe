@@ -1,0 +1,29 @@
+"Draw" = "Unentschieden";
+"won" = "%@ gewinnt";
+"Congratulation" = "Kongratulation";
+"New Game" = "Neues Spiel";
+"You Lose" = "Du hast verloren";
+
+"Bluetooth" = "Bluetooth";
+"Multiplayer" = "Mehrspieler";
+"Singleplayer" = "Einzelspieler";
+
+"Connected" = "Verbunden";
+"Disconnected" = "Getrennt";
+
+"Connection request" = "Verbindungsanfrage";
+"%@ would like to connect" = "%@ möchte eine Verbindung herstellen";
+"Dismiss" = "Ablehnen";
+"Accept" = "Annehmen";
+
+"bluetoothErrorTitle" = "Error";
+"bluetoothErrorMessage" = "Keine Bluetoothunterstützung für dieses Getät";
+
+"BuyAlertMessage" = "Features der Vollversion:\n+ Keine Werbung\n+ Keine Kaufbenachrichtigung\n+ Einstellbarer Schwierigkeitsgrad im Einzelspieler-Modus";
+"Buy-Alert" = "Kaufbenachrichtigung";
+"No Thanks" = "Nein Danke";
+"OK - 0.99$" = "OK - 0.79€";
+
+"Easy" = "Leicht";
+"Normal" = "Normal";
+"Expert" = "Schwer";

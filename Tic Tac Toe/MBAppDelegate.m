@@ -7,15 +7,16 @@
 //
 
 #import "MBAppDelegate.h"
-
-#import "MBViewController.h"
+#import "MBMainViewController_iPhone.h"
+#import "MBMainViewController_iPad.h"
 
 @implementation MBAppDelegate
 
 - (void)dealloc
 {
     [_window release];
-    [_viewController release];
+    [_mainViewController_iPhone release];
+    [_mainViewController_iPad release];
     [super dealloc];
 }
 
@@ -24,12 +25,16 @@
     self.window = [[[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]] autorelease];
     // Override point for customization after application launch.
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
-        self.viewController = [[[MBViewController alloc] initWithNibName:@"MBViewController_iPhone" bundle:nil] autorelease];
+        self.mainViewController_iPhone = [[[MBMainViewController_iPhone alloc] initWithNibName:@"MBMainView_iPhone" bundle:nil] autorelease];
+        self.window.rootViewController = self.mainViewController_iPhone;
     } else {
-        self.viewController = [[[MBViewController alloc] initWithNibName:@"MBViewController_iPad" bundle:nil] autorelease];
+        self.mainViewController_iPad = [[[MBMainViewController_iPad alloc] initWithNibName:@"MBMainView_iPad" bundle:nil] autorelease];
+        self.window.rootViewController = self.mainViewController_iPad;
     }
-    self.window.rootViewController = self.viewController;
     [self.window makeKeyAndVisible];
+    
+    [MBGameCenterSessionManager sharedManager];
+    [MBBluetoothSessionManager sharedManager];
     return YES;
 }
 

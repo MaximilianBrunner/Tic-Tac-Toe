@@ -7,13 +7,18 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "MBGameCenterSessionManager.h"
+#import "MBBluetoothSessionManager.h"
 
-@class MBViewController;
+@class MBMainViewController_iPhone;
+@class MBMainViewController_iPad;
+
 
 @interface MBAppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
 
-@property (strong, nonatomic) MBViewController *viewController;
+@property (strong, nonatomic) MBMainViewController_iPhone *mainViewController_iPhone;
+@property (strong, nonatomic) MBMainViewController_iPad *mainViewController_iPad;
 
 @end

@@ -1,0 +1,29 @@
+"Draw" = "Draw";
+"won" = "%@ won the game";
+"Congratulation" = "Congratulation";
+"New Game" = "New Game";
+"You Lose" = "You Lose";
+
+"Bluetooth" = "Bluetooth";
+"Multiplayer" = "Multiplayer";
+"Singleplayer" = "Singleplayer";
+
+"Connected" = "Connected";
+"Disconnected" = "Disconnected";
+
+"Connection request" = "Connection request";
+"%@ would like to connect" = "%@ would like to connect";
+"Dismiss" = "Dismiss";
+"Accept" = "Accept";
+
+"bluetoothErrorTitle" = "Error";
+"bluetoothErrorMessage" = "No bluetooth supported for this device";
+
+"BuyAlertMessage" = "Features of the full version:\n+ No advertisement\n+ No Buy-Alert\n+ Adjust the difficulty of the Singleplayer";
+"Buy-Alert" = "Buy-Alert";
+"No Thanks" = "No Thanks";
+"OK - 0.99$" = "OK - 0.99$";
+
+"Easy" = "Easy";
+"Normal" = "Normal";
+"Expert" = "Expert";
