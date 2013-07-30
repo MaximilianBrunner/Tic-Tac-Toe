@@ -62,7 +62,7 @@
     }
 }
 
-# pragma mark UIScrollViewDelegate
+# pragma mark - UIScrollViewDelegate
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     if (scrollView.contentOffset.x < 0.0f) {
@@ -92,7 +92,36 @@
     }
 }
 
-# pragma mark ADBannerViewDelegate
+# pragma mark - UITableViewDelegate
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [mainScrollView scrollRectToVisible:[[gameCenterViewController view] frame] animated:YES];
+}
+
+# pragma mark - UITableViewDataSource
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    return 2;
+}
+
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
+    return @"Section";
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return 5;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cellID"];
+    if (!cell) {
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cellID"];
+    }
+    [[cell textLabel] setText:[NSString stringWithFormat:@"S:%ld R:%ld", (long)indexPath.section + 1, (long)indexPath.row + 1]];
+    return cell;
+}
+
+# pragma mark - ADBannerViewDelegate
 
 - (void)bannerViewWillLoadAd:(ADBannerView *)banner {
     

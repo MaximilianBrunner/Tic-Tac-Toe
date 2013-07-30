@@ -20,7 +20,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view from its nib
     self.view.layer.shadowOffset = CGSizeZero;
     self.view.layer.shadowColor = [[UIColor blackColor] CGColor];
     self.view.layer.shadowOpacity = 1.0f;

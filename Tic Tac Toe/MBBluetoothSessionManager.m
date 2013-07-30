@@ -13,16 +13,14 @@
 static MBBluetoothSessionManager *sharedSessionManager = nil;
 
 - (id)init {
-    self = [super init];
-	if (self) {
+	if (self = [super init]) {
         
 	}
 	return self;
 }
 
 
-#pragma mark -
-#pragma Singleton:
+#pragma mark - Singleton
 
 + (MBBluetoothSessionManager *)sharedManager {
     if (sharedSessionManager == nil) {
@@ -44,11 +42,10 @@ static MBBluetoothSessionManager *sharedSessionManager = nil;
 }
 
 - (NSUInteger)retainCount {
-    return NSUIntegerMax;  //denotes an object that cannot be released
+    return NSUIntegerMax;
 }
 
 - (oneway void)release {
-    //do nothing
 }
 
 - (id)autorelease {

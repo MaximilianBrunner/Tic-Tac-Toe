@@ -14,8 +14,9 @@
 #import "MBMultiplayerViewController_iPhone.h"
 #import "MBBluetoothMultiplayerViewController_iPhone.h"
 
-@interface MBMainViewController_iPhone : UIViewController <UIScrollViewDelegate, ADBannerViewDelegate> {
+@interface MBMainViewController_iPhone : UIViewController <UIScrollViewDelegate, UITableViewDelegate, UITableViewDataSource, ADBannerViewDelegate> {
     IBOutlet MBMainScrollView_iPhone *mainScrollView;
+    IBOutlet UITableView *gameCenterSessionTableView;
     IBOutlet ADBannerView *mainAdView;
 
     MBGameCenterViewController_iPhone *gameCenterViewController;

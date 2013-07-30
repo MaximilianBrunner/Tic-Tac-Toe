@@ -13,16 +13,24 @@
 static MBGameCenterSessionManager *sharedSessionManager = nil;
 
 - (id)init {
-    self = [super init];
-	if (self) {
-        
+	if (self = [super init]) {
+        GKLocalPlayer *localPlayer = [GKLocalPlayer localPlayer];
+        [localPlayer setAuthenticateHandler:^(UIViewController *viewController, NSError *error) {
+            if (viewController) {
+                //show view Controller
+            }
+            else if ([localPlayer isAuthenticated]) {
+                //
+            }
+            else {
+                //disable game center
+            }
+        }];
 	}
 	return self;
 }
 
-
-#pragma mark -
-#pragma Singleton:
+#pragma mark - Singleton
 
 + (MBGameCenterSessionManager *)sharedManager {
     if (sharedSessionManager == nil) {
@@ -44,11 +52,10 @@ static MBGameCenterSessionManager *sharedSessionManager = nil;
 }
 
 - (NSUInteger)retainCount {
-    return NSUIntegerMax;  //denotes an object that cannot be released
+    return NSUIntegerMax;
 }
 
 - (oneway void)release {
-    //do nothing
 }
 
 - (id)autorelease {

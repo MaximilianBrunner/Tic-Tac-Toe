@@ -68,12 +68,12 @@
             AudioServicesPlaySystemSound(SoundX);
             [sender setTitle:@"X" forState:UIControlStateNormal];
             if (![self isGameFinished]) {
-                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int16_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^(void){
+                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^(void) {
                     for (int i = 1; i < 10; i++) { [button[i] setUserInteractionEnabled:YES]; }
                     AudioServicesPlaySystemSound(SoundO);
                     [button[[self buttonNumberForValue:@"O" withDifficulty:difficultyState]] setTitle:@"O" forState:UIControlStateNormal];
                     [self isGameFinished];
-                    [UIView animateWithDuration:0.2 animations:^{
+                    [UIView animateWithDuration:0.2 animations:^(void) {
                         [labelX setAlpha:1.0f];
                         [labelO setAlpha:0.3f];
                         [countLabelX setAlpha:1.0f];
@@ -82,7 +82,7 @@
                     setX = YES;
                 });
             }
-            [UIView animateWithDuration:0.2 animations:^{
+            [UIView animateWithDuration:0.2 animations:^(void) {
                 [labelX setAlpha:0.3f];
                 [labelO setAlpha:1.0f];
                 [countLabelX setAlpha:0.5f];
@@ -92,12 +92,12 @@
             AudioServicesPlaySystemSound(SoundO);
             [sender setTitle:@"O" forState:UIControlStateNormal];
             if (![self isGameFinished]) {
-                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int16_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^(void){
+                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^(void) {
                     for (int i = 1; i < 10; i++) { [button[i] setUserInteractionEnabled:YES]; }
                     AudioServicesPlaySystemSound(SoundX);
                     [button[[self buttonNumberForValue:@"X" withDifficulty:difficultyState]] setTitle:@"X" forState:UIControlStateNormal];
                     [self isGameFinished];
-                    [UIView animateWithDuration:0.2 animations:^{
+                    [UIView animateWithDuration:0.2 animations:^(void) {
                         [labelX setAlpha:0.3f];
                         [labelO setAlpha:1.0f];
                         [countLabelX setAlpha:0.5f];
@@ -106,7 +106,7 @@
                     setX = NO;
                 });
             }
-            [UIView animateWithDuration:0.2 animations:^{
+            [UIView animateWithDuration:0.2 animations:^(void) {
                 [labelX setAlpha:1.0f];
                 [labelO setAlpha:0.3f];
                 [countLabelX setAlpha:1.0f];
@@ -714,12 +714,12 @@
         
         //-->
         for (int i = 1; i < 10; i++) { [button[i] setUserInteractionEnabled:NO]; }
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int16_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^(void){
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int16_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^(void) {
             for (int i = 1; i < 10; i++) { [button[i] setUserInteractionEnabled:YES]; }
             AudioServicesPlaySystemSound(SoundO);
             [button[[self buttonNumberForValue:@"O" withDifficulty:difficultyState]] setTitle:@"O" forState:UIControlStateNormal];
             [self isGameFinished];
-            [UIView animateWithDuration:0.2 animations:^{
+            [UIView animateWithDuration:0.2 animations:^(void) {
                 [labelX setAlpha:1.0f];
                 [labelO setAlpha:0.3f];
                 [countLabelX setAlpha:1.0f];
@@ -729,7 +729,7 @@
         });
         //<--
         
-        [UIView animateWithDuration:0.2 animations:^{
+        [UIView animateWithDuration:0.2 animations:^(void) {
             [labelX setAlpha:0.3f];
             [labelO setAlpha:1.0f];
             [countLabelX setAlpha:0.5f];
@@ -737,7 +737,7 @@
         }];
 	}
 	else {
-        [UIView animateWithDuration:0.2 animations:^{
+        [UIView animateWithDuration:0.2 animations:^(void) {
             [labelX setAlpha:1.0f];
             [labelO setAlpha:0.3f];
             [countLabelX setAlpha:1.0f];
