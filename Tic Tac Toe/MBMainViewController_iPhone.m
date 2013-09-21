@@ -101,23 +101,40 @@
 # pragma mark - UITableViewDataSource
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 2;
+    return 3;
 }
 
-- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-    return @"Section";
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    return 24.0f;
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+    MBGameCenterSessionTableViewSectionHeaderView_iPhone *sectionHeaderView = [[[NSBundle mainBundle] loadNibNamed:@"MBGameCenterSessionTableViewSectionHeaderView_iPhone" owner:self options:nil] objectAtIndex:0];
+    switch (section) {
+        case 0:
+            [sectionHeaderView setSectionName:@"Online"];
+            break;
+        case 1:
+            [sectionHeaderView setSectionName:@"Your Turn"];
+            break;
+        case 2:
+            [sectionHeaderView setSectionName:@"Pending"];
+            break;
+    }
+    return sectionHeaderView;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 5;
+    return 3;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cellID"];
+    MBGameCenterSessionTableViewCell_iPhone *cell = (MBGameCenterSessionTableViewCell_iPhone *)[tableView dequeueReusableCellWithIdentifier:@"gameCenterSessionCell"];
     if (!cell) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cellID"];
+        
+        cell = (MBGameCenterSessionTableViewCell_iPhone *)[[[NSBundle mainBundle] loadNibNamed:@"MBGameCenterSessionTableViewCell_iPhone" owner:self options:nil] objectAtIndex:0];
     }
-    [[cell textLabel] setText:[NSString stringWithFormat:@"S:%ld R:%ld", (long)indexPath.section + 1, (long)indexPath.row + 1]];
+    [cell setPeerName:[NSString stringWithFormat:@"S:%ld R:%ld", (long)indexPath.section + 1, (long)indexPath.row + 1]];
     return cell;
 }
 

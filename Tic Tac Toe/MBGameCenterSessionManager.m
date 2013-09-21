@@ -17,13 +17,14 @@ static MBGameCenterSessionManager *sharedSessionManager = nil;
         GKLocalPlayer *localPlayer = [GKLocalPlayer localPlayer];
         [localPlayer setAuthenticateHandler:^(UIViewController *viewController, NSError *error) {
             if (viewController) {
-                //show view Controller
+                NSLog(@"GC is enabled");
+                NSLog(@"show Authentication Dialog When Reasonable");
             }
             else if ([localPlayer isAuthenticated]) {
-                //
+                NSLog(@"GC is enabled");
             }
             else {
-                //disable game center
+                NSLog(@"GC is disabled");
             }
         }];
 	}

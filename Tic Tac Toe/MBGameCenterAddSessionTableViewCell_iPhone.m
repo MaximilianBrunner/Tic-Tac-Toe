@@ -1,14 +1,16 @@
 //
-//  MBGameCenterLiveSessionTableViewCell_iPhone.m
+//  MBGameCenterAddSessionTableViewCell_iPhone.h
 //  Tic Tac Toe
 //
 //  Created by Maximilian Brunner on 30.07.13.
 //  Copyright (c) 2013 Maximilian Brunner. All rights reserved.
 //
 
-#import "MBGameCenterLiveSessionTableViewCell_iPhone.h"
+#import "MBGameCenterAddSessionTableViewCell_iPhone.h"
 
-@implementation MBGameCenterLiveSessionTableViewCell_iPhone
+@implementation MBGameCenterAddSessionTableViewCell_iPhone
+
+@synthesize delegate;
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
@@ -17,6 +19,10 @@
         // Initialization code
     }
     return self;
+}
+
+- (IBAction)addSession:(UIButton *)sender {
+    [delegate addGameCenterSession:self];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated

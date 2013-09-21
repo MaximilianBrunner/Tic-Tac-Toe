@@ -13,6 +13,10 @@
 #import "MBSingleplayerViewController_iPhone.h"
 #import "MBMultiplayerViewController_iPhone.h"
 #import "MBBluetoothMultiplayerViewController_iPhone.h"
+#import "MBGameCenterSessionTableViewSectionHeaderView_iPhone.h"
+#import "MBGameCenterSessionTableViewCell_iPhone.h"
+#import "MBGameCenterAddSessionTableViewCell_iPhone.h"
+
 
 @interface MBMainViewController_iPhone : UIViewController <UIScrollViewDelegate, UITableViewDelegate, UITableViewDataSource, ADBannerViewDelegate> {
     IBOutlet MBMainScrollView_iPhone *mainScrollView;
