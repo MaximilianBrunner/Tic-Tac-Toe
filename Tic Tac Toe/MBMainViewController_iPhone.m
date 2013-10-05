@@ -19,8 +19,7 @@
         multiplayerViewController = [[MBMultiplayerViewController_iPhone alloc] initWithNibName:@"MBMultiplayerView_iPhone" bundle:nil];
         bluetoothMultiplayerViewController = [[MBBluetoothMultiplayerViewController_iPhone alloc] initWithNibName:@"MBBluetoothMultiplayerView_iPhone" bundle:nil];
         viewControllerArray = [[NSArray alloc] initWithObjects:gameCenterViewController, singleplayerViewController, multiplayerViewController, bluetoothMultiplayerViewController, nil];
-        [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:NO];
-        [self.view setFrame: [[UIScreen mainScreen] bounds]];
+        [[MBBluetoothSessionManager sharedManager] setDelegate:self];
     }
     return self;
 }
@@ -33,6 +32,7 @@
         multiplayerViewController = [[MBMultiplayerViewController_iPhone alloc] initWithNibName:@"MBMultiplayerView_iPhone" bundle:nil];
         bluetoothMultiplayerViewController = [[MBBluetoothMultiplayerViewController_iPhone alloc] initWithNibName:@"MBBluetoothMultiplayerView_iPhone" bundle:nil];
         viewControllerArray = [[NSArray alloc] initWithObjects:gameCenterViewController, singleplayerViewController, multiplayerViewController, bluetoothMultiplayerViewController, nil];
+        [[MBBluetoothSessionManager sharedManager] setDelegate:self];
     }
     return self;
 }
@@ -47,7 +47,7 @@
     }
     [mainScrollView setContentSize:overallContentSize];
     [mainScrollView setContentInset:UIEdgeInsetsMake(0.0f, 200.0f, 0.0f, -200.0f)];
-    [mainScrollView setContentOffset:CGPointMake(mainScrollView.frame.size.width * 2.0f, 0.0f)];
+    [mainScrollView setContentOffset:CGPointMake([mainScrollView frame].size.width * 2.0f, 0.0f)];
     mainScrollView.scrollsToTop = NO;
     
     for (int page = 0; page < [viewControllerArray count]; page++) {
@@ -60,9 +60,24 @@
         [(UIViewController *)[viewControllerArray objectAtIndex:page] view].frame = frame;
         [mainScrollView addSubview:[(UIViewController *)[viewControllerArray objectAtIndex:page] view]];
     }
+    
+    
+    
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^(void) {
+		[mainScrollView setContentOffset:CGPointMake([mainScrollView frame].size.width * 2.0f - 60.0f, 0.0) animated:YES];
+    });
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.6 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^(void) {
+		[mainScrollView setContentOffset:CGPointMake([mainScrollView frame].size.width * 2.0f + 40.0f, 0.0) animated:YES];
+    });
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.9 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^(void) {
+		[mainScrollView setContentOffset:CGPointMake([mainScrollView frame].size.width * 2.0f - 10.0f, 0.0) animated:YES];
+    });
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^(void) {
+		[mainScrollView setContentOffset:CGPointMake([mainScrollView frame].size.width * 2.0f, 0.0) animated:YES];
+    });
 }
 
-# pragma mark - UIScrollViewDelegate
+#pragma mark - UIScrollViewDelegate
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     if (scrollView.contentOffset.x < 0.0f) {
@@ -71,6 +86,15 @@
     else {
         [scrollView setBounces:YES];
     }
+    
+    /*
+    if ([scrollView contentOffset].x == 640.0f && lastPageNumber != 3) {
+        MBMessage_iPhone *message = [[MBMessage_iPhone alloc] initWithTitle:NSLocalizedString(@"Multiplayer", @"Multiplayer") andTextColor:[MBMessage_iPhone defaultTextColor]];
+		[message show];
+		[message release];
+        lastPageNumber = 3;
+    }
+     */
 }
 
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
@@ -92,13 +116,45 @@
     }
 }
 
-# pragma mark - UITableViewDelegate
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
+    if ([scrollView contentOffset].x == -200.0f) {
+        
+    } else if ([scrollView contentOffset].x == 0.0f && lastPageNumber != 1) {
+        MBMessage_iPhone *message = [[MBMessage_iPhone alloc] initWithTitle:NSLocalizedString(@"Game Center", @"GameCenter") andTextColor:[MBMessage_iPhone defaultTextColor]];
+		[message show];
+		[message release];
+        lastPageNumber = 1;
+    } else if ([scrollView contentOffset].x == 320.0f && lastPageNumber != 2) {
+        MBMessage_iPhone *message = [[MBMessage_iPhone alloc] initWithTitle:NSLocalizedString(@"Singleplayer", @"Singleplayer") andTextColor:[MBMessage_iPhone defaultTextColor]];
+		[message show];
+		[message release];
+        lastPageNumber = 2;
+        
+    } else if ([scrollView contentOffset].x == 640.0f && lastPageNumber != 3) {
+        MBMessage_iPhone *message = [[MBMessage_iPhone alloc] initWithTitle:NSLocalizedString(@"Multiplayer", @"Multiplayer") andTextColor:[MBMessage_iPhone defaultTextColor]];
+		[message show];
+		[message release];
+        lastPageNumber = 3;
+         
+    } else if ([scrollView contentOffset].x == 960.0f) {
+        [[MBBluetoothSessionManager sharedManager] showPeerPicker];
+        lastPageNumber = 4;
+    }
+}
+
+#pragma mark - MBGameCenterAddSessionTableViewCellDelegate
+
+- (void)addGameCenterSession:(MBGameCenterAddSessionTableViewCell_iPhone *)sender {
+    
+}
+
+#pragma mark - UITableViewDelegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [mainScrollView scrollRectToVisible:[[gameCenterViewController view] frame] animated:YES];
 }
 
-# pragma mark - UITableViewDataSource
+#pragma mark - UITableViewDataSource
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return 3;
@@ -138,7 +194,30 @@
     return cell;
 }
 
-# pragma mark - ADBannerViewDelegate
+#pragma mark - MBBluetoothSessionManagerDelegate
+
+- (void)bluetoothSessionManager:(MBBluetoothSessionManager *)manager didChangeConnectionState:(MBBluetoothConnectionState)connectionState {
+    
+}
+
+- (void)bluetoothSessionManagerDidCancelPeerPicker:(MBBluetoothSessionManager *)manager {
+    
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.4 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^(void) {
+        CGRect multiplayerRect = [[multiplayerViewController view] frame];
+        CGRect animationRect = CGRectMake(multiplayerRect.origin.x + 200.0f, multiplayerRect.origin.y, multiplayerRect.size.width, multiplayerRect.size.height);
+        [mainScrollView scrollRectToVisible:animationRect animated:YES];
+    });
+    
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.70 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^(void) {
+        MBMessage_iPhone *message = [[MBMessage_iPhone alloc] initWithTitle:NSLocalizedString(@"Multiplayer", @"Multiplayer") andTextColor:[MBMessage_iPhone defaultTextColor]];
+		[message show];
+		[message release];
+        lastPageNumber = 3;
+    });
+    
+}
+
+#pragma mark - ADBannerViewDelegate
 
 - (void)bannerViewWillLoadAd:(ADBannerView *)banner {
     

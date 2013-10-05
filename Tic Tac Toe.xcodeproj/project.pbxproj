@@ -43,6 +43,8 @@
 		50D01B8617A80F8400117F4F /* MBGameCenterAddSessionTableViewCell_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 50D01B8517A80F8400117F4F /* MBGameCenterAddSessionTableViewCell_iPhone.xib */; };
 		50D01B8917A80F9F00117F4F /* MBGameCenterAddSessionTableViewCell_iPhone.m in Sources */ = {isa = PBXBuildFile; fileRef = 50D01B8817A80F9F00117F4F /* MBGameCenterAddSessionTableViewCell_iPhone.m */; };
 		50EB229B175A254600B6DFC7 /* MBMainView_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 50EB2299175A254600B6DFC7 /* MBMainView_iPhone.xib */; };
+		50F15FE418002633005E3758 /* MBMessage_iPhone.m in Sources */ = {isa = PBXBuildFile; fileRef = 50F15FE318002633005E3758 /* MBMessage_iPhone.m */; };
+		50F15FE618002CDA005E3758 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 50F15FE518002CDA005E3758 /* QuartzCore.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -99,6 +101,9 @@
 		50D01B8717A80F9F00117F4F /* MBGameCenterAddSessionTableViewCell_iPhone.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBGameCenterAddSessionTableViewCell_iPhone.h; sourceTree = "<group>"; };
 		50D01B8817A80F9F00117F4F /* MBGameCenterAddSessionTableViewCell_iPhone.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBGameCenterAddSessionTableViewCell_iPhone.m; sourceTree = "<group>"; };
 		50EB229A175A254600B6DFC7 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MBMainView_iPhone.xib; sourceTree = "<group>"; };
+		50F15FE218002633005E3758 /* MBMessage_iPhone.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBMessage_iPhone.h; sourceTree = "<group>"; };
+		50F15FE318002633005E3758 /* MBMessage_iPhone.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBMessage_iPhone.m; sourceTree = "<group>"; };
+		50F15FE518002CDA005E3758 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -106,6 +111,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				50F15FE618002CDA005E3758 /* QuartzCore.framework in Frameworks */,
 				501DD58C17513AB20018C543 /* AudioToolbox.framework in Frameworks */,
 				503E79D117497357007310FB /* GameKit.framework in Frameworks */,
 				50315F1C170C5EB300330F35 /* iAd.framework in Frameworks */,
@@ -138,6 +144,7 @@
 		1A46D12A1705ED8B0081E271 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				50F15FE518002CDA005E3758 /* QuartzCore.framework */,
 				501DD58B17513AB10018C543 /* AudioToolbox.framework */,
 				503E79D017497357007310FB /* GameKit.framework */,
 				50315F1B170C5EB200330F35 /* iAd.framework */,
@@ -187,6 +194,8 @@
 				1A46D1431705ED8B0081E271 /* MBMainViewController_iPhone.h */,
 				1A46D1441705ED8B0081E271 /* MBMainViewController_iPhone.m */,
 				50EB2299175A254600B6DFC7 /* MBMainView_iPhone.xib */,
+				50F15FE218002633005E3758 /* MBMessage_iPhone.h */,
+				50F15FE318002633005E3758 /* MBMessage_iPhone.m */,
 				507EBA4F17ECC03500893785 /* MBGameCenterSessionTableViewSectionHeaderView */,
 				50D01B8417A80DD300117F4F /* MBGameCenterSessionTableViewCell */,
 				503E79CA1749652D007310FB /* MBMainScrollView_iPhone.h */,
@@ -269,6 +278,11 @@
 				CLASSPREFIX = MB;
 				LastUpgradeCheck = 0460;
 				ORGANIZATIONNAME = "Maximilian Brunner";
+				TargetAttributes = {
+					1A46D1271705ED8B0081E271 = {
+						DevelopmentTeam = BT6KWR64FM;
+					};
+				};
 			};
 			buildConfigurationList = 1A46D1231705ED8B0081E271 /* Build configuration list for PBXProject "Tic Tac Toe" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -325,6 +339,7 @@
 				1A46D153170611D40081E271 /* MBMainViewController_iPad.m in Sources */,
 				1A46D16317062B6A0081E271 /* MBMultiplayerViewController_iPhone.m in Sources */,
 				1A46D16817062BFD0081E271 /* MBSingleplayerViewController_iPhone.m in Sources */,
+				50F15FE418002633005E3758 /* MBMessage_iPhone.m in Sources */,
 				1A46D16D170656BF0081E271 /* MBBluetoothMultiplayerViewController_iPhone.m in Sources */,
 				1A6F2575170668B100D807D0 /* MBGameCenterViewController_iPhone.m in Sources */,
 				503E79CC1749652D007310FB /* MBMainScrollView_iPhone.m in Sources */,
@@ -434,11 +449,14 @@
 		1A46D14F1705ED8B0081E271 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Tic Tac Toe/Tic Tac Toe-Prefix.pch";
 				INFOPLIST_FILE = "Tic Tac Toe/Tic Tac Toe-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -446,11 +464,14 @@
 		1A46D1501705ED8B0081E271 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Tic Tac Toe/Tic Tac Toe-Prefix.pch";
 				INFOPLIST_FILE = "Tic Tac Toe/Tic Tac Toe-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

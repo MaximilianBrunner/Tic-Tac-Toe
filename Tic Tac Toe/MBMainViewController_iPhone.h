@@ -8,17 +8,25 @@
 
 #import <UIKit/UIKit.h>
 #import <iAd/iAd.h>
+
 #import "MBMainScrollView_iPhone.h"
+
+#import "MBMessage_iPhone.h"
+
 #import "MBGameCenterViewController_iPhone.h"
 #import "MBSingleplayerViewController_iPhone.h"
 #import "MBMultiplayerViewController_iPhone.h"
 #import "MBBluetoothMultiplayerViewController_iPhone.h"
+
 #import "MBGameCenterSessionTableViewSectionHeaderView_iPhone.h"
 #import "MBGameCenterSessionTableViewCell_iPhone.h"
 #import "MBGameCenterAddSessionTableViewCell_iPhone.h"
 
+#import "MBGameCenterSessionManager.h"
+#import "MBBluetoothSessionManager.h"
 
-@interface MBMainViewController_iPhone : UIViewController <UIScrollViewDelegate, UITableViewDelegate, UITableViewDataSource, ADBannerViewDelegate> {
+
+@interface MBMainViewController_iPhone : UIViewController <UIScrollViewDelegate, UITableViewDelegate, UITableViewDataSource, ADBannerViewDelegate, MBGameCenterAddSessionTableViewCellDelegate, MBBluetoothSessionManagerDelegate> {
     IBOutlet MBMainScrollView_iPhone *mainScrollView;
     IBOutlet UITableView *gameCenterSessionTableView;
     IBOutlet ADBannerView *mainAdView;
@@ -28,6 +36,8 @@
     MBMultiplayerViewController_iPhone *multiplayerViewController;
     MBBluetoothMultiplayerViewController_iPhone *bluetoothMultiplayerViewController;
     NSArray *viewControllerArray;
+    
+    int lastPageNumber;
 }
 
 @end
