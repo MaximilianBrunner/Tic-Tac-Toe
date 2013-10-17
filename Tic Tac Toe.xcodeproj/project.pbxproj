@@ -43,6 +43,9 @@
 		50D01B8617A80F8400117F4F /* MBGameCenterAddSessionTableViewCell_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 50D01B8517A80F8400117F4F /* MBGameCenterAddSessionTableViewCell_iPhone.xib */; };
 		50D01B8917A80F9F00117F4F /* MBGameCenterAddSessionTableViewCell_iPhone.m in Sources */ = {isa = PBXBuildFile; fileRef = 50D01B8817A80F9F00117F4F /* MBGameCenterAddSessionTableViewCell_iPhone.m */; };
 		50EB229B175A254600B6DFC7 /* MBMainView_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 50EB2299175A254600B6DFC7 /* MBMainView_iPhone.xib */; };
+		50EDEB7518104B8200D6F3E1 /* MultipeerConnectivity.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 50EDEB7418104B8200D6F3E1 /* MultipeerConnectivity.framework */; };
+		50EDEB781810786900D6F3E1 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 50EDEB761810786900D6F3E1 /* Icon.png */; };
+		50EDEB791810786900D6F3E1 /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 50EDEB771810786900D6F3E1 /* Icon@2x.png */; };
 		50F15FE418002633005E3758 /* MBMessage_iPhone.m in Sources */ = {isa = PBXBuildFile; fileRef = 50F15FE318002633005E3758 /* MBMessage_iPhone.m */; };
 		50F15FE618002CDA005E3758 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 50F15FE518002CDA005E3758 /* QuartzCore.framework */; };
 /* End PBXBuildFile section */
@@ -101,6 +104,9 @@
 		50D01B8717A80F9F00117F4F /* MBGameCenterAddSessionTableViewCell_iPhone.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBGameCenterAddSessionTableViewCell_iPhone.h; sourceTree = "<group>"; };
 		50D01B8817A80F9F00117F4F /* MBGameCenterAddSessionTableViewCell_iPhone.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBGameCenterAddSessionTableViewCell_iPhone.m; sourceTree = "<group>"; };
 		50EB229A175A254600B6DFC7 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MBMainView_iPhone.xib; sourceTree = "<group>"; };
+		50EDEB7418104B8200D6F3E1 /* MultipeerConnectivity.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MultipeerConnectivity.framework; path = System/Library/Frameworks/MultipeerConnectivity.framework; sourceTree = SDKROOT; };
+		50EDEB761810786900D6F3E1 /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
+		50EDEB771810786900D6F3E1 /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon@2x.png"; sourceTree = "<group>"; };
 		50F15FE218002633005E3758 /* MBMessage_iPhone.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBMessage_iPhone.h; sourceTree = "<group>"; };
 		50F15FE318002633005E3758 /* MBMessage_iPhone.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBMessage_iPhone.m; sourceTree = "<group>"; };
 		50F15FE518002CDA005E3758 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
@@ -111,6 +117,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				50EDEB7518104B8200D6F3E1 /* MultipeerConnectivity.framework in Frameworks */,
 				50F15FE618002CDA005E3758 /* QuartzCore.framework in Frameworks */,
 				501DD58C17513AB20018C543 /* AudioToolbox.framework in Frameworks */,
 				503E79D117497357007310FB /* GameKit.framework in Frameworks */,
@@ -144,6 +151,7 @@
 		1A46D12A1705ED8B0081E271 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				50EDEB7418104B8200D6F3E1 /* MultipeerConnectivity.framework */,
 				50F15FE518002CDA005E3758 /* QuartzCore.framework */,
 				501DD58B17513AB10018C543 /* AudioToolbox.framework */,
 				503E79D017497357007310FB /* GameKit.framework */,
@@ -174,6 +182,8 @@
 		1A46D1321705ED8B0081E271 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				50EDEB761810786900D6F3E1 /* Icon.png */,
+				50EDEB771810786900D6F3E1 /* Icon@2x.png */,
 				503D3863175299ED00E1E9D8 /* playO.caf */,
 				503D3864175299ED00E1E9D8 /* playX.caf */,
 				503D385D17527CA300E1E9D8 /* Localizable.strings */,
@@ -307,6 +317,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				50EDEB781810786900D6F3E1 /* Icon.png in Resources */,
+				50EDEB791810786900D6F3E1 /* Icon@2x.png in Resources */,
 				1A46D1361705ED8B0081E271 /* InfoPlist.strings in Resources */,
 				1A46D13E1705ED8B0081E271 /* Default.png in Resources */,
 				1A46D1401705ED8B0081E271 /* Default@2x.png in Resources */,

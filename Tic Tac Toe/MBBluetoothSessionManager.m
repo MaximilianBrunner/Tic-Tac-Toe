@@ -16,97 +16,98 @@ static MBBluetoothSessionManager *sharedSessionManager = nil;
 
 - (id)init {
 	if (self = [super init]) {
-        currentSession = [[GKSession alloc] initWithSessionID:@"abcdefg" displayName:nil sessionMode:GKSessionModePeer];
-		[currentSession setDelegate:self];
-		[currentSession setDataReceiveHandler:self withContext:NULL];
-		//[currentSession setAvailable:YES];
+        MCPeerID *peerID = [[MCPeerID alloc] initWithDisplayName:[[UIDevice currentDevice] name]];
+        session = [[MCSession alloc] initWithPeer:peerID];
+        [peerID release];
+        [session setDelegate:self];
+        advertiserAssistant = [[MCAdvertiserAssistant alloc] initWithServiceType:@"at-mb-tictactoe" discoveryInfo:[NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:@"IDString", @"ID2String", nil]
+                                                                                                                                                    forKeys:[NSArray arrayWithObjects:@"ID", @"ID2", nil]] session:session];
+        [advertiserAssistant setDelegate:self];
+        MCNearbyServiceBrowser *browser = [[MCNearbyServiceBrowser alloc] initWithPeer:peerID serviceType:@"at-mb-tictactoe"];
+        [peerID release];
+        browserViewController = [[MCBrowserViewController alloc] initWithBrowser:browser session:session];
+        [browser release];
+        [browserViewController setMaximumNumberOfPeers:2];
+        [browserViewController setDelegate:self];
         currentSessionState = MBBluetoothConnectionStateDisconnected;
 	}
 	return self;
 }
 
 
-- (void)showPeerPicker {
-    if (currentSessionState == MBBluetoothConnectionStateDisconnected) {
-        currentPeerPicker = [[GKPeerPickerController alloc] init];
-		[currentPeerPicker setDelegate:self];
-		[currentPeerPicker setConnectionTypesMask:GKPeerPickerConnectionTypeNearby];
-		[currentPeerPicker show];
-    }
+
+- (void)startAdertising {
+    [advertiserAssistant start];
 }
 
-- (void)dismissPeerPicker {
-    if (currentSessionState == MBBluetoothConnectionStateDisconnected && currentPeerPicker) {
-        if ([currentPeerPicker isVisible]) {
-            [currentPeerPicker dismiss];
-        }
-    }
+- (void)stopAdvertising {
+    [advertiserAssistant stop];
 }
 
-- (void)sendData:(NSData *)data withSendingMode:(GKSendDataMode )sendingMode ofType:(MBBluetoothPacketType)type {
+- (void)showPeerBrowser {
+    [[[[UIApplication sharedApplication] keyWindow] rootViewController] presentViewController:browserViewController animated:YES completion:^{
+        
+    }];
+}
+
+- (void)dismissPeerBrowser {
+    [browserViewController dismissViewControllerAnimated:YES completion:^{
+        
+    }];
+}
+
+- (void)sendData:(NSData *)data ofType:(MBBluetoothPacketType)type {
     NSMutableData * newPacket = [NSMutableData dataWithCapacity:([data length] + sizeof(uint32_t))];
     uint32_t swappedType = CFSwapInt32HostToBig((uint32_t)type);
     [newPacket appendBytes:&swappedType length:sizeof(uint32_t)];
     [newPacket appendData:data];
-	[currentSession sendDataToAllPeers:newPacket withDataMode:sendingMode error:nil];
+    //[currentSession sendDataToAllPeers:newPacket withDataMode:sendingMode error:nil];
+    [session sendData:newPacket toPeers:[NSArray arrayWithObject:connectedPeer] withMode:MCSessionSendDataReliable error:nil];
 }
 
 - (void)disconnect {
-    [currentSession disconnectFromAllPeers];
+    [session disconnect];
 }
 
-#pragma mark - GKPeerPickerControllerDelegate
-
-- (GKSession *)peerPickerController:(GKPeerPickerController *)picker sessionForConnectionType:(GKPeerPickerConnectionType)type {
-    return currentSession;
+- (MBBluetoothConnectionState)connectionState {
+    return currentSessionState;
 }
 
-- (void)peerPickerController:(GKPeerPickerController *)picker didConnectPeer:(NSString *)peerID toSession:(GKSession *) session {
-    [session setDelegate:self];
-    [session setDataReceiveHandler:self withContext:NULL];
-    currentSession = session;
-    [currentSession setDelegate:self];
-    [currentSession setDataReceiveHandler:self withContext:NULL];
-    
-	[picker dismiss];
-	picker.delegate = nil;
-	[picker autorelease];
-}
+#pragma mark - MCSessionDelegate
 
-- (void)peerPickerControllerDidCancel:(GKPeerPickerController *)picker {
-    picker.delegate = nil;
-    NSLog(@"%d", [picker retainCount]);
-	[picker release];
-	[delegate bluetoothSessionManagerDidCancelPeerPicker:self];
-}
-
-#pragma mark - GKSessionDelegate
-
-- (void)session:(GKSession *)session peer:(NSString *)peerID didChangeState:(GKPeerConnectionState)state {
-	switch (state) {
-        case GKPeerStateAvailable:
-            NSLog(@"the Session is Available");
-			break;
-        case GKPeerStateUnavailable:
-            NSLog(@"the Session is Unavailable");
-			break;
-        case GKPeerStateConnected:
-            currentSessionState = MBBluetoothConnectionStateConnected;
-            NSLog(@"the Session is Conneced");
-			break;
-        case GKPeerStateDisconnected:
-            currentSessionState = MBBluetoothConnectionStateDisconnected;
-            NSLog(@"the Session is Disconnected");
-			break;
-        case GKPeerStateConnecting:
-            NSLog(@"the Session is Connecting");
-			break;
+- (void)session:(MCSession *)session peer:(MCPeerID *)peerID didChangeState:(MCSessionState)state {
+    switch (state) {
+        case MCSessionStateConnected:
+            [self stopAdvertising];
+            NSLog(@"Connected");
+            if (currentSessionState != MBBluetoothConnectionStateConnected) {
+                currentSessionState = MBBluetoothConnectionStateConnected;
+                [delegate bluetoothSessionManager:self didChangeConnectionState:MBBluetoothConnectionStateConnected];
+            }
+            [browserViewController dismissViewControllerAnimated:YES completion:^{
+                
+            }];
+            break;
+        case MCSessionStateConnecting:
+            NSLog(@"Connecting");
+            if (currentSessionState != MBBluetoothConnectionStateConnecting) {
+                currentSessionState = MBBluetoothConnectionStateConnecting;
+                [delegate bluetoothSessionManager:self didChangeConnectionState:MBBluetoothConnectionStateConnecting];
+            }
+            break;
+        case MCSessionStateNotConnected:
+            [self startAdertising];
+            NSLog(@"Disconnected");
+            if (currentSessionState != MBBluetoothConnectionStateDisconnected) {
+                currentSessionState = MBBluetoothConnectionStateDisconnected;
+                [delegate bluetoothSessionManager:self didChangeConnectionState:MBBluetoothConnectionStateDisconnected];
+            }
+            break;
     }
-	[delegate bluetoothSessionManager:self didChangeConnectionState:currentSessionState];
 }
 
-- (void)receiveData:(NSData *)data fromPeer:(NSString *)peer inSession:(GKSession *)session context:(void *)context {
-	MBBluetoothPacketType header;
+- (void)session:(MCSession *)session didReceiveData:(NSData *)data fromPeer:(MCPeerID *)peerID {
+    MBBluetoothPacketType header;
     uint32_t swappedHeader;
     if ([data length] >= sizeof(uint32_t)) {
         [data getBytes:&swappedHeader length:sizeof(uint32_t)];
@@ -115,6 +116,35 @@ static MBBluetoothSessionManager *sharedSessionManager = nil;
         NSData* payload = [data subdataWithRange:payloadRange];
 		[dataReceiveHandler bluetoothSessionManager:self didReceiveData:payload ofType:header];
     }
+}
+
+#pragma mark - MCAdvertiserAssistantDelegate
+
+
+- (void)advertiserAssitantWillPresentInvitation:(MCAdvertiserAssistant *)advertiserAssistant {
+    
+}
+
+- (void)advertiserAssistantDidDismissInvitation:(MCAdvertiserAssistant *)advertiserAssistant {
+    
+}
+
+#pragma mark - MCBrowserViewControllerDelegate
+
+- (BOOL)browserViewController:(MCBrowserViewController *)browserViewController shouldPresentNearbyPeer:(MCPeerID *)peerID withDiscoveryInfo:(NSDictionary *)info {
+    return YES;
+}
+
+- (void)browserViewControllerDidFinish:(MCBrowserViewController *)browser {
+    [browserViewController dismissViewControllerAnimated:YES completion:^{
+        [delegate bluetoothSessionManagerDidDismissPeerBrowser:self];
+    }];
+}
+
+- (void)browserViewControllerWasCancelled:(MCBrowserViewController *)browser {
+    [browserViewController dismissViewControllerAnimated:YES completion:^{
+        [delegate bluetoothSessionManagerDidDismissPeerBrowser:self];
+    }];
 }
 
 #pragma mark - Singleton
@@ -150,7 +180,11 @@ static MBBluetoothSessionManager *sharedSessionManager = nil;
 }
 
 - (void)dealloc {
-    
+    [session disconnect];
+    [session release];
+    [advertiserAssistant stop];
+    [advertiserAssistant release];
+    [browserViewController release];
 	[super dealloc];
 }
 

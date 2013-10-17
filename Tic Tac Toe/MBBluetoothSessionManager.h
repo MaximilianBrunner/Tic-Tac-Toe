@@ -7,25 +7,28 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <GameKit/GameKit.h>
+#import <MultipeerConnectivity/MultipeerConnectivity.h>
 
 typedef enum {
     MBBluetoothPacketTypeTurn
 } MBBluetoothPacketType;
 
 typedef enum {
-    MBBluetoothConnectionStateDisconnected,
-    MBBluetoothConnectionStateConnected
+    MBBluetoothConnectionStateConnected,
+    MBBluetoothConnectionStateConnecting,
+    MBBluetoothConnectionStateDisconnected
 } MBBluetoothConnectionState;
 
 @protocol MBBluetoothSessionManagerDelegate, MBBluetoothDataReceiveHandlerDelegate;
 
-@interface MBBluetoothSessionManager : NSObject <GKSessionDelegate, GKPeerPickerControllerDelegate> {
+@interface MBBluetoothSessionManager : NSObject <MCSessionDelegate ,MCAdvertiserAssistantDelegate, MCBrowserViewControllerDelegate> {
     id <MBBluetoothSessionManagerDelegate> delegate;
 	id <MBBluetoothDataReceiveHandlerDelegate> dataReceiveHandler;
     
-    GKPeerPickerController *currentPeerPicker;
-    GKSession *currentSession;
+    MCSession *session;
+    MCAdvertiserAssistant *advertiserAssistant;
+    MCBrowserViewController *browserViewController;
+    MCPeerID *connectedPeer;
     
     MBBluetoothConnectionState currentSessionState;
 }
@@ -35,17 +38,24 @@ typedef enum {
 
 + (MBBluetoothSessionManager *)sharedManager;
 
-- (void)showPeerPicker;
-- (void)dismissPeerPicker;
-- (void)sendData:(NSData *)data withSendingMode:(GKSendDataMode )sendingMode ofType:(MBBluetoothPacketType)type;
+
+- (void)startAdertising;
+- (void)stopAdvertising;
+- (void)showPeerBrowser;
+- (void)dismissPeerBrowser;
+
+- (void)sendData:(NSData *)data ofType:(MBBluetoothPacketType)type;
 - (void)disconnect;
+
+- (MBBluetoothConnectionState)connectionState;
 
 @end
 
 @protocol MBBluetoothSessionManagerDelegate
 @required
 - (void)bluetoothSessionManager:(MBBluetoothSessionManager *)manager didChangeConnectionState:(MBBluetoothConnectionState)connectionState;
-- (void)bluetoothSessionManagerDidCancelPeerPicker:(MBBluetoothSessionManager *)manager;
+- (void)bluetoothSessionManagerDidDismissPeerBrowser:(MBBluetoothSessionManager *)manager;
+
 @end
 
 @protocol MBBluetoothDataReceiveHandlerDelegate

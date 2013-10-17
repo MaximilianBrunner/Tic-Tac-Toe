@@ -137,7 +137,13 @@
         lastPageNumber = 3;
          
     } else if ([scrollView contentOffset].x == 960.0f) {
-        [[MBBluetoothSessionManager sharedManager] showPeerPicker];
+        if ([[MBBluetoothSessionManager sharedManager] connectionState] == MBBluetoothConnectionStateConnected) {
+            MBMessage_iPhone *message = [[MBMessage_iPhone alloc] initWithTitle:NSLocalizedString(@"Bluetooth", @"Bluetooth") andTextColor:[MBMessage_iPhone defaultTextColor]];
+            [message show];
+            [message release];
+        } else {
+            [[MBBluetoothSessionManager sharedManager] showPeerBrowser];
+        }
         lastPageNumber = 4;
     }
 }
@@ -197,24 +203,44 @@
 #pragma mark - MBBluetoothSessionManagerDelegate
 
 - (void)bluetoothSessionManager:(MBBluetoothSessionManager *)manager didChangeConnectionState:(MBBluetoothConnectionState)connectionState {
-    
+    switch (connectionState) {
+        case MBBluetoothConnectionStateConnected:;
+            CGRect bluetoothMultiplayerRect = CGRectMake([[bluetoothMultiplayerViewController view] frame].origin.x + 200.0f, [[bluetoothMultiplayerViewController view] frame].origin.y, [[bluetoothMultiplayerViewController view] frame].size.width, [[bluetoothMultiplayerViewController view] frame].size.height);
+            [mainScrollView scrollRectToVisible:bluetoothMultiplayerRect animated:YES];
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^(void) {
+                MBMessage_iPhone *amessage = [[MBMessage_iPhone alloc] initWithTitle:NSLocalizedString(@"Connected", @"Connected") andTextColor:[MBMessage_iPhone defaultTextColor]];
+                [amessage show];
+                [amessage release];
+            });
+            break;
+        case MBBluetoothConnectionStateConnecting:
+            
+            break;
+        case MBBluetoothConnectionStateDisconnected:;
+            CGRect multiplayerRect = CGRectMake([[multiplayerViewController view] frame].origin.x + 200.0f, [[multiplayerViewController view] frame].origin.y, [[multiplayerViewController view] frame].size.width, [[multiplayerViewController view] frame].size.height);
+            [mainScrollView scrollRectToVisible:multiplayerRect animated:YES];
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^(void) {
+                MBMessage_iPhone *message = [[MBMessage_iPhone alloc] initWithTitle:NSLocalizedString(@"Disconnected", @"Disconnected") andTextColor:[MBMessage_iPhone defaultTextColor]];
+                [message show];
+                [message release];
+                lastPageNumber = 3;
+            });
+            break;
+    }
 }
 
-- (void)bluetoothSessionManagerDidCancelPeerPicker:(MBBluetoothSessionManager *)manager {
-    
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.4 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^(void) {
+- (void)bluetoothSessionManagerDidDismissPeerBrowser:(MBBluetoothSessionManager *)manager {
+    if ([[MBBluetoothSessionManager sharedManager] connectionState] == MBBluetoothConnectionStateDisconnected) {
         CGRect multiplayerRect = [[multiplayerViewController view] frame];
         CGRect animationRect = CGRectMake(multiplayerRect.origin.x + 200.0f, multiplayerRect.origin.y, multiplayerRect.size.width, multiplayerRect.size.height);
         [mainScrollView scrollRectToVisible:animationRect animated:YES];
-    });
-    
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.70 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^(void) {
-        MBMessage_iPhone *message = [[MBMessage_iPhone alloc] initWithTitle:NSLocalizedString(@"Multiplayer", @"Multiplayer") andTextColor:[MBMessage_iPhone defaultTextColor]];
-		[message show];
-		[message release];
-        lastPageNumber = 3;
-    });
-    
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^(void) {
+            MBMessage_iPhone *message = [[MBMessage_iPhone alloc] initWithTitle:NSLocalizedString(@"Multiplayer", @"Multiplayer") andTextColor:[MBMessage_iPhone defaultTextColor]];
+            [message show];
+            [message release];
+            lastPageNumber = 3;
+        });
+    }
 }
 
 #pragma mark - ADBannerViewDelegate
