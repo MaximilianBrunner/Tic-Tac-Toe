@@ -15,8 +15,8 @@
     if (self) {
         AudioServicesCreateSystemSoundID(CFBundleCopyResourceURL(CFBundleGetMainBundle(), CFSTR("playX"), CFSTR("caf"), NULL), &SoundX);
         AudioServicesCreateSystemSoundID(CFBundleCopyResourceURL(CFBundleGetMainBundle(), CFSTR("playO"), CFSTR("caf"), NULL), &SoundO);
-        letXbegin = YES;
-        setX = letXbegin;
+        setX = YES;
+        letXbegin = setX;
     }
     return self;
 }
@@ -87,91 +87,121 @@
 }
 
 - (void)checkState {
-    if ([[button[1] currentTitle] isEqualToString:[button[2] currentTitle]] && [[button[1] currentTitle] isEqualToString:[button[3] currentTitle]] && ![[button[1] currentTitle] isEqualToString:@""]) {
-		[button[1] setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
-		[button[2] setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
-		[button[3] setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
-        for (int i = 1; i < 10; i++) { [button[i] setUserInteractionEnabled:NO]; }
-		if ([[button[1] currentTitle] isEqualToString:@"X"]) {
-            [self performSelector:@selector(xWon) withObject:nil afterDelay:0.1];
-		} else {
-            [self performSelector:@selector(oWon) withObject:nil afterDelay:0.1];
-		}
-	} else if ([[button[4] currentTitle] isEqualToString:[button[5] currentTitle]] && [[button[4] currentTitle] isEqualToString:[button[6] currentTitle]] && ![[button[4] currentTitle] isEqualToString:@""]) {
-		[button[4] setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
-		[button[5] setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
-		[button[6] setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
-        for (int i = 1; i < 10; i++) { [button[i] setUserInteractionEnabled:NO]; }
-		if ([[button[4] currentTitle] isEqualToString:@"X"]) {
-            [self performSelector:@selector(xWon) withObject:nil afterDelay:0.1];
-		} else {
-            [self performSelector:@selector(oWon) withObject:nil afterDelay:0.1];
-		}
-	} else if ([[button[7] currentTitle] isEqualToString:[button[8] currentTitle]] && [[button[7] currentTitle] isEqualToString:[button[9] currentTitle]] && ![[button[7] currentTitle] isEqualToString:@""]) {
-		[button[7] setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
-		[button[8] setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
-		[button[9] setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
-        for (int i = 1; i < 10; i++) { [button[i] setUserInteractionEnabled:NO]; }
-		if ([[button[7] currentTitle] isEqualToString:@"X"]) {
-            [self performSelector:@selector(xWon) withObject:nil afterDelay:0.1];
-		} else {
-            [self performSelector:@selector(oWon) withObject:nil afterDelay:0.1];
-		}
-	} else if ([[button[1] currentTitle] isEqualToString:[button[4] currentTitle]] && [[button[1] currentTitle] isEqualToString:[button[7] currentTitle]] && ![[button[1] currentTitle] isEqualToString:@""]) {
-		[button[1] setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
-		[button[4] setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
-		[button[7] setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
-        for (int i = 1; i < 10; i++) { [button[i] setUserInteractionEnabled:NO]; }
-		if ([[button[1] currentTitle] isEqualToString:@"X"]) {
-            [self performSelector:@selector(xWon) withObject:nil afterDelay:0.1];
-		} else {
-            [self performSelector:@selector(oWon) withObject:nil afterDelay:0.1];
-		}
-	} else if ([[button[2] currentTitle] isEqualToString:[button[5] currentTitle]] && [[button[2] currentTitle] isEqualToString:[button[8] currentTitle]] && ![[button[2] currentTitle] isEqualToString:@""]) {
-		[button[2] setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
-		[button[5] setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
-		[button[8] setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
-        for (int i = 1; i < 10; i++) { [button[i] setUserInteractionEnabled:NO]; }
-		if ([[button[2] currentTitle] isEqualToString:@"X"]) {
-            [self performSelector:@selector(xWon) withObject:nil afterDelay:0.1];
-		} else {
-            [self performSelector:@selector(oWon) withObject:nil afterDelay:0.1];
-		}
-	} else if ([[button[3] currentTitle] isEqualToString:[button[6] currentTitle]] && [[button[3] currentTitle] isEqualToString:[button[9] currentTitle]] && ![[button[3] currentTitle] isEqualToString:@""]) {
-		[button[3] setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
-		[button[6] setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
-		[button[9] setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
-        for (int i = 1; i < 10; i++) { [button[i] setUserInteractionEnabled:NO]; }
-		if ([[button[3] currentTitle] isEqualToString:@"X"]) {
-            [self performSelector:@selector(xWon) withObject:nil afterDelay:0.1];
-		} else {
-            [self performSelector:@selector(oWon) withObject:nil afterDelay:0.1];
-		}
-	} else if ([[button[1] currentTitle] isEqualToString:[button[5] currentTitle]] && [[button[1] currentTitle] isEqualToString:[button[9] currentTitle]] && ![[button[1] currentTitle] isEqualToString:@""]) {
-		[button[1] setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
-		[button[5] setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
-		[button[9] setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
-        for (int i = 1; i < 10; i++) { [button[i] setUserInteractionEnabled:NO]; }
-		if ([[button[1] currentTitle] isEqualToString:@"X"]) {
-            [self performSelector:@selector(xWon) withObject:nil afterDelay:0.1];
-		} else {
-            [self performSelector:@selector(oWon) withObject:nil afterDelay:0.1];
-		}
-	} else if ([[button[3] currentTitle] isEqualToString:[button[5] currentTitle]] && [[button[3] currentTitle] isEqualToString:[button[7] currentTitle]] && ![[button[3] currentTitle] isEqualToString:@""]) {
-		[button[3] setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
-		[button[5] setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
-		[button[7] setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
-        for (int i = 1; i < 10; i++) { [button[i] setUserInteractionEnabled:NO]; }
-		if ([[button[3] currentTitle] isEqualToString:@"X"]) {
-            [self performSelector:@selector(xWon) withObject:nil afterDelay:0.1];
-		} else {
-            [self performSelector:@selector(oWon) withObject:nil afterDelay:0.1];
-		}
-	} else if (![[button[1] currentTitle] isEqualToString:@""] && ![[button[2] currentTitle] isEqualToString:@""] && ![[button[3] currentTitle] isEqualToString:@""] &&
-             ![[button[4] currentTitle] isEqualToString:@""] && ![[button[5] currentTitle] isEqualToString:@""] && ![[button[6] currentTitle] isEqualToString:@""] &&
-             ![[button[7] currentTitle] isEqualToString:@""] && ![[button[8] currentTitle] isEqualToString:@""] && ![[button[9] currentTitle] isEqualToString:@""]) {
+    for (int i = 0; i < 4; i++) {
+        if ([[button[[self virtualButtonNumberForRealButton:1 withLayerIndex:i]] currentTitle] isEqualToString:[button[[self virtualButtonNumberForRealButton:2 withLayerIndex:i]] currentTitle]] &&
+            [[button[[self virtualButtonNumberForRealButton:1 withLayerIndex:i]] currentTitle] isEqualToString:[button[[self virtualButtonNumberForRealButton:3 withLayerIndex:i]] currentTitle]] &&
+            ![[button[[self virtualButtonNumberForRealButton:1 withLayerIndex:i]] currentTitle] isEqualToString:@""]) {
+            if ([[button[[self virtualButtonNumberForRealButton:1 withLayerIndex:i]] currentTitle] isEqualToString:@"X"]) {
+                [self performSelector:@selector(xWon) withObject:nil afterDelay:0.1];
+            } else {
+                [self performSelector:@selector(oWon) withObject:nil afterDelay:0.1];
+            }
+        }
+    }
+    for (int i = 0; i < 2; i++) {
+        if ([[button[[self virtualButtonNumberForRealButton:2 withLayerIndex:i]] currentTitle] isEqualToString:[button[[self virtualButtonNumberForRealButton:5 withLayerIndex:i]] currentTitle]] &&
+            [[button[[self virtualButtonNumberForRealButton:2 withLayerIndex:i]] currentTitle] isEqualToString:[button[[self virtualButtonNumberForRealButton:8 withLayerIndex:i]] currentTitle]] &&
+            ![[button[[self virtualButtonNumberForRealButton:2 withLayerIndex:i]] currentTitle] isEqualToString:@""]) {
+            if ([[button[[self virtualButtonNumberForRealButton:2 withLayerIndex:i]] currentTitle] isEqualToString:@"X"]) {
+                [self performSelector:@selector(xWon) withObject:nil afterDelay:0.1];
+            } else {
+                [self performSelector:@selector(oWon) withObject:nil afterDelay:0.1];
+            }
+        }
+    }
+    for (int i = 0; i < 2; i++) {
+        if ([[button[[self virtualButtonNumberForRealButton:1 withLayerIndex:i]] currentTitle] isEqualToString:[button[[self virtualButtonNumberForRealButton:5 withLayerIndex:i]] currentTitle]] &&
+            [[button[[self virtualButtonNumberForRealButton:1 withLayerIndex:i]] currentTitle] isEqualToString:[button[[self virtualButtonNumberForRealButton:9 withLayerIndex:i]] currentTitle]] &&
+            ![[button[[self virtualButtonNumberForRealButton:1 withLayerIndex:i]] currentTitle] isEqualToString:@""]) {
+            if ([[button[[self virtualButtonNumberForRealButton:1 withLayerIndex:i]] currentTitle] isEqualToString:@"X"]) {
+                [self performSelector:@selector(xWon) withObject:nil afterDelay:0.1];
+            } else {
+                [self performSelector:@selector(oWon) withObject:nil afterDelay:0.1];
+            }
+        }
+    }
+    if (![[button[1] currentTitle] isEqualToString:@""] && ![[button[2] currentTitle] isEqualToString:@""] && ![[button[3] currentTitle] isEqualToString:@""] &&
+        ![[button[4] currentTitle] isEqualToString:@""] && ![[button[5] currentTitle] isEqualToString:@""] && ![[button[6] currentTitle] isEqualToString:@""] &&
+        ![[button[7] currentTitle] isEqualToString:@""] && ![[button[8] currentTitle] isEqualToString:@""] && ![[button[9] currentTitle] isEqualToString:@""]) {
         [self performSelector:@selector(draw) withObject:nil afterDelay:0.1];
 	}
+}
+
+#pragma mark -
+#pragma mark layer rotation
+
+- (int)virtualButtonNumberForRealButton:(int)buttonNumber withLayerIndex:(int)index {
+    switch (index) {
+        case 0: //1.Layer (=0°):
+            return buttonNumber;
+            break;
+        case 1: //2.Layer (=90°):
+            switch (buttonNumber) {
+                case 1:
+                    return 7;
+                    break;
+                case 2:
+                    return 4;
+                    break;
+                case 3:
+                    return 1;
+                    break;
+                case 4:
+                    return 8;
+                    break;
+                case 5:
+                    return 5;
+                    break;
+                case 6:
+                    return 2;
+                    break;
+                case 7:
+                    return 9;
+                    break;
+                case 8:
+                    return 6;
+                    break;
+                case 9:
+                    return 3;
+                    break;
+            }
+            break;
+        case 2: //3.Layer (=180°):
+            return (10 - buttonNumber);
+            break;
+        case 3: //4.Layer (=270°)
+            switch (buttonNumber) {
+                case 1:
+                    return 3;
+                    break;
+                case 2:
+                    return 6;
+                    break;
+                case 3:
+                    return 9;
+                    break;
+                case 4:
+                    return 2;
+                    break;
+                case 5:
+                    return 5;
+                    break;
+                case 6:
+                    return 8;
+                    break;
+                case 7:
+                    return 1;
+                    break;
+                case 8:
+                    return 4;
+                    break;
+                case 9:
+                    return 7;
+                    break;
+            }
+            break;
+    }
+    return 0;
 }
 
 #pragma mark -

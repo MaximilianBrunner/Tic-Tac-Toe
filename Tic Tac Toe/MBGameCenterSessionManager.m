@@ -40,12 +40,11 @@ static MBGameCenterSessionManager *sharedSessionManager = nil;
     BOOL osVersionSupported = ([currSysVer compare:reqSysVer options:NSNumericSearch] != NSOrderedAscending);
     return (gcClass && osVersionSupported);
 }
-
+/*
 - (void)createNewGameWithPlayer:(GKPlayer *)player CompletionHandler:(void (^)(GKTurnBasedMatch *matche, NSError *error))completionHandler {
-   
     
 }
-
+*/
 - (void)loadGamesWithCompletionHandler:(void (^)(NSArray *games, NSError *error))completionHandler {
     [GKTurnBasedMatch loadMatchesWithCompletionHandler:completionHandler];
 }

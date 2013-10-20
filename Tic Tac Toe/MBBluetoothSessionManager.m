@@ -117,7 +117,14 @@ static MBBluetoothSessionManager *sharedSessionManager = nil;
 		[dataReceiveHandler bluetoothSessionManager:self didReceiveData:payload ofType:header];
     }
 }
-
+/* Gegen Kompiler Warnungen:
+- (void)session:(MCSession *)session didStartReceivingResourceWithName:(NSString *)resourceName fromPeer:(MCPeerID *)peerID withProgress:(NSProgress *)progress {
+}
+- (void)session:(MCSession *)session didFinishReceivingResourceWithName:(NSString *)resourceName fromPeer:(MCPeerID *)peerID atURL:(NSURL *)localURL withError:(NSError *)error {
+}
+- (void)session:(MCSession *)session didReceiveStream:(NSInputStream *)stream withName:(NSString *)streamName fromPeer:(MCPeerID *)peerID {
+}
+*/
 #pragma mark - MCAdvertiserAssistantDelegate
 
 

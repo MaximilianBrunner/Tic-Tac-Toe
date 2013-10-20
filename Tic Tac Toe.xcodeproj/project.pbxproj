@@ -38,6 +38,7 @@
 		503E79D417497685007310FB /* MBGameCenterSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 503E79D317497685007310FB /* MBGameCenterSessionManager.m */; };
 		507BE1CF17EE39310092D9AA /* MBGameCenterSessionTableViewSectionHeaderView_iPhone.m in Sources */ = {isa = PBXBuildFile; fileRef = 507BE1CE17EE39310092D9AA /* MBGameCenterSessionTableViewSectionHeaderView_iPhone.m */; };
 		507BE1D117EE393E0092D9AA /* MBGameCenterSessionTableViewSectionHeaderView_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 507BE1D017EE393E0092D9AA /* MBGameCenterSessionTableViewSectionHeaderView_iPhone.xib */; };
+		50CDA04F1814233C00B5AAF0 /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 50CDA04E1814233C00B5AAF0 /* GLKit.framework */; };
 		50D01B8117A7FE6000117F4F /* MBGameCenterSessionTableViewCell_iPhone.m in Sources */ = {isa = PBXBuildFile; fileRef = 50D01B8017A7FE6000117F4F /* MBGameCenterSessionTableViewCell_iPhone.m */; };
 		50D01B8317A7FE8400117F4F /* MBGameCenterSessionTableViewCell_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 50D01B8217A7FE8400117F4F /* MBGameCenterSessionTableViewCell_iPhone.xib */; };
 		50D01B8617A80F8400117F4F /* MBGameCenterAddSessionTableViewCell_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 50D01B8517A80F8400117F4F /* MBGameCenterAddSessionTableViewCell_iPhone.xib */; };
@@ -97,6 +98,7 @@
 		507BE1CD17EE39310092D9AA /* MBGameCenterSessionTableViewSectionHeaderView_iPhone.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBGameCenterSessionTableViewSectionHeaderView_iPhone.h; sourceTree = "<group>"; };
 		507BE1CE17EE39310092D9AA /* MBGameCenterSessionTableViewSectionHeaderView_iPhone.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBGameCenterSessionTableViewSectionHeaderView_iPhone.m; sourceTree = "<group>"; };
 		507BE1D017EE393E0092D9AA /* MBGameCenterSessionTableViewSectionHeaderView_iPhone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MBGameCenterSessionTableViewSectionHeaderView_iPhone.xib; sourceTree = "<group>"; };
+		50CDA04E1814233C00B5AAF0 /* GLKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLKit.framework; path = System/Library/Frameworks/GLKit.framework; sourceTree = SDKROOT; };
 		50D01B7F17A7FE6000117F4F /* MBGameCenterSessionTableViewCell_iPhone.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBGameCenterSessionTableViewCell_iPhone.h; sourceTree = "<group>"; };
 		50D01B8017A7FE6000117F4F /* MBGameCenterSessionTableViewCell_iPhone.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBGameCenterSessionTableViewCell_iPhone.m; sourceTree = "<group>"; };
 		50D01B8217A7FE8400117F4F /* MBGameCenterSessionTableViewCell_iPhone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MBGameCenterSessionTableViewCell_iPhone.xib; sourceTree = "<group>"; };
@@ -117,6 +119,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				50CDA04F1814233C00B5AAF0 /* GLKit.framework in Frameworks */,
 				50EDEB7518104B8200D6F3E1 /* MultipeerConnectivity.framework in Frameworks */,
 				50F15FE618002CDA005E3758 /* QuartzCore.framework in Frameworks */,
 				501DD58C17513AB20018C543 /* AudioToolbox.framework in Frameworks */,
@@ -151,6 +154,7 @@
 		1A46D12A1705ED8B0081E271 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				50CDA04E1814233C00B5AAF0 /* GLKit.framework */,
 				50EDEB7418104B8200D6F3E1 /* MultipeerConnectivity.framework */,
 				50F15FE518002CDA005E3758 /* QuartzCore.framework */,
 				501DD58B17513AB10018C543 /* AudioToolbox.framework */,

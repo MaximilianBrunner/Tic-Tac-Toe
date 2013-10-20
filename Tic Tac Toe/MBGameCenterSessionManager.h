@@ -27,7 +27,7 @@ typedef enum {
 
 + (BOOL)isGameCenterAvailable;
 
-- (void)createNewGameWithPlayer:(GKPlayer *)player CompletionHandler:(void (^)(GKTurnBasedMatch *matche, NSError *error))completionHandler;
+//- (void)createNewGameWithPlayer:(GKPlayer *)player CompletionHandler:(void (^)(GKTurnBasedMatch *matche, NSError *error))completionHandler;
 - (void)loadGamesWithCompletionHandler:(void (^)(NSArray *games, NSError *error))completionHandler;
 
 

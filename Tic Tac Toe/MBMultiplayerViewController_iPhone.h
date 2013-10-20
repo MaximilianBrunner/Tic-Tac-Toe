@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <GLKit/GLKMatrix3.h>
 #import <AudioToolbox/AudioToolbox.h>
 
 @interface MBMultiplayerViewController_iPhone : UIViewController <UIAlertViewDelegate> {
@@ -47,5 +48,11 @@
 - (void)increaseX;
 - (void)increaseO;
 - (void)clear;
+
+//1.Layer: layerIndex = 0 ( = 0° )
+//2.Layer: layerIndex = 1 ( = 90° )
+//3.Layer: layerIndex = 2 ( = 180° )
+//4.Layer: layerIndex = 3 ( = 270° )
+- (int)virtualButtonNumberForRealButton:(int)buttonNumber withLayerIndex:(int)index;
 
 @end
